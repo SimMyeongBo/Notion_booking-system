@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Finder</title>
+    <script>
+        function showUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var mapUrl = "http://www.google.com/maps?q=" + latitude + "," + longitude + "&keyword=hotel&output=embed";
+                    document.getElementById("map").src = mapUrl;
+
+                    // Fetch hotel data (you can replace this with an API call)
+                    var hotelData = [
+                        {
+                            name: "Hotel A",
+                            price: "₩50,000",
+                            facilities: "Swimming pool, gym",
+                            contact: "01.2345.6789",
+                            website: "https://www.example.com/hotelA"
+                        },
+                        // Add more hotel data as needed
+                    ];
+
+                    // Populate the table with hotel information
+                    var tableBody = document.getElementById("hotelTableBody");
+                    tableBody.innerHTML = ""; // Clear existing rows
+
+                    for (var i = 0; i < hotelData.length; i++) {
+                        var row = tableBody.insertRow();
+                        row.insertCell(0).textContent = hotelData[i].name;
+                        row.insertCell(1).textContent = hotelData[i].price;
+                        row.insertCell(2).textContent = hotelData[i].facilities;
+                        row.insertCell(3).textContent = hotelData[i].contact;
+                        row.insertCell(4).innerHTML = `<a href="${hotelData[i].website}">Visit Website</a>`;
+                    }
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Hotel Finder</h1>
+    <button onclick="showUserLocation()">View Nearby Hotels</button>
+    <iframe id="map" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+    <h2>Hotel Information</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Hotel Name</th>
+                <th>Price</th>
+                <th>Facilities & Features</th>
+                <th>Contact</th>
+                <th>Website</th>
+            </tr>
+        </thead>
+        <tbody id="hotelTableBody">
+            <!-- Hotel data will be dynamically inserted here -->
+        </tbody>
+    </table>
+</body>
+</html>
