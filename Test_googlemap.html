@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 위치 표시</title>
+    <script>
+        function showUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var mapUrl = "https://www.google.com/maps?q=" + latitude + "," + longitude;
+                    document.getElementById("map").src = mapUrl;
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>사용자 위치 표시</h1>
+    <button onclick="showUserLocation()">내 위치 보기</button>
+    <iframe id="map" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</body>
+</html>
